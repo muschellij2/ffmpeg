@@ -125,7 +125,7 @@ testthat::test_that("ffmpeg can combine audio and images into a video", {
   graphs <- sapply(1:n_plots, function(x) {
     tempfile(fileext = ".jpg", tmpdir = tdir)
   })
-  graphs = file.path(tdir, basename(tdir))
+  graphs = file.path(tdir, basename(graphs))
   for (i in seq_along(graphs)) {
     jpeg(graphs[i])
     plot(1:5 * i, 1:5, main = i)
