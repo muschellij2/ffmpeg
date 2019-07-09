@@ -12,7 +12,7 @@ stitcher = function(images, audio,
   video_bitrate = NULL
   
   stopifnot(length(images) > 0)
-  images <- normalizePath(images)
+  images <- normalizePath(images, mustWork = TRUE, winslash = "/")
   output_dir <- normalizePath(dirname(output))
   stopifnot(
     length(audio) > 0,
@@ -127,13 +127,15 @@ testthat::test_that("ffmpeg can combine audio and images into a video", {
     plot(1:5 * i, 1:5, main = i)
     dev.off()
   }
+  graphs = normalizePath(
+    graphs, mustWork = TRUE,
+    winslash = "/")
   
   sound <- replicate(
     n_plots, 
     tuneR::Wave(round(rnorm(88200, 127, 20)), 
                 samp.rate = 44100, bit = 16))
   
-  wav <- Reduce(sound, f = tuneR::bind)
   output <- tempfile(fileext = ".mp4")
   stitcher(graphs, sound, 
            output = output,
