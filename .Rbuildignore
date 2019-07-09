@@ -8,3 +8,5 @@
 ^pkgdown$
 ^CRAN-RELEASE$
 ^LICENSE\.md$
+^appveyor\.yml$
+^README\.Rmd$
