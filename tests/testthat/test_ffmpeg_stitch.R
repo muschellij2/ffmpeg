@@ -6,7 +6,8 @@ stitcher = function(images, audio,
                     video_codec = get_video_codec(),
                     output = tempfile(fileext = ".mp4"),
                     verbose = TRUE) {
-  
+
+  tdir = normalizePath(tempdir(), winslash = "/")
   
   audio_bitrate = "192k"
   video_bitrate = NULL
@@ -47,14 +48,14 @@ stitcher = function(images, audio,
   wav <- Reduce(audio, f = tuneR::bind)
   wav_path <- file.path(output_dir, 
                         paste0("audio_", 
-                               basename(tempfile()), 
+                               basename(tempfile(tmpdir = tdir)), 
                                ".wav"))
   tuneR::writeWave(wav, filename = wav_path)
   on.exit(unlink(wav_path, force = TRUE), add = TRUE)
   
   input_txt_path <- file.path(output_dir, 
                               paste0("input_", 
-                                     basename(tempfile()), 
+                                     basename(tempfile(tmpdir = tdir)), 
                                      ".txt"))
   ## on windows ffmpeg cancats names adding the working directory, so if
   for (i in seq_along(images)){
@@ -118,9 +119,11 @@ if (fdk_enabled) {
 testthat::test_that("ffmpeg can combine audio and images into a video", {
   testthat::skip_on_cran()
   
+  tdir = normalizePath(tempdir(), winslash = "/")
+  
   n_plots = 3
   graphs <- sapply(1:n_plots, function(x) {
-    tempfile(fileext = ".jpg")
+    tempfile(fileext = ".jpg", tmpdir = tdir)
   })
   for (i in seq_along(graphs)) {
     jpeg(graphs[i])
@@ -136,7 +139,8 @@ testthat::test_that("ffmpeg can combine audio and images into a video", {
     tuneR::Wave(round(rnorm(88200, 127, 20)), 
                 samp.rate = 44100, bit = 16))
   
-  output <- tempfile(fileext = ".mp4")
+  output <- tempfile(fileext = ".mp4", tmpdir = tdir)
+  
   stitcher(graphs, sound, 
            output = output,
            audio_codec = audio_codec)
