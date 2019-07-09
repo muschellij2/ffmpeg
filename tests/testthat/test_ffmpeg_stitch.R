@@ -7,7 +7,7 @@ stitcher = function(images, audio,
                     output = tempfile(fileext = ".mp4"),
                     verbose = TRUE) {
   
- 
+  
   audio_bitrate = "192k"
   video_bitrate = NULL
   
@@ -44,20 +44,20 @@ stitcher = function(images, audio,
   if (verbose > 0) {
     message("Writing out Wav for audio")
   }
-  wav <- purrr::reduce(audio, tuneR::bind)
+  wav <- Reduce(audio, f = tuneR::bind)
   wav_path <- file.path(output_dir, 
                         paste0("audio_", 
                                basename(tempfile()), 
                                ".wav"))
   tuneR::writeWave(wav, filename = wav_path)
-    on.exit(unlink(wav_path, force = TRUE), add = TRUE)
+  on.exit(unlink(wav_path, force = TRUE), add = TRUE)
   
   input_txt_path <- file.path(output_dir, 
                               paste0("input_", 
                                      basename(tempfile()), 
                                      ".txt"))
   ## on windows ffmpeg cancats names adding the working directory, so if
-  for(i in seq_along(images)){
+  for (i in seq_along(images)){
     cat(paste0("file ", "'", images[i], "'", "\n"), 
         file = input_txt_path, append = TRUE)
     cat(paste0("duration ", duration(audio[[i]]), "\n"), 
@@ -117,7 +117,7 @@ if (fdk_enabled) {
 
 testthat::test_that("ffmpeg can combine audio and images into a video", {
   testthat::skip_on_cran()
-
+  
   n_plots = 3
   graphs <- sapply(1:n_plots, function(x) {
     tempfile(fileext = ".jpg")
@@ -133,7 +133,7 @@ testthat::test_that("ffmpeg can combine audio and images into a video", {
     tuneR::Wave(round(rnorm(88200, 127, 20)), 
                 samp.rate = 44100, bit = 16))
   
-  wav <- purrr::reduce(sound, tuneR::bind)
+  wav <- Reduce(sound, f = tuneR::bind)
   output <- tempfile(fileext = ".mp4")
   stitcher(graphs, sound, 
            output = output,
