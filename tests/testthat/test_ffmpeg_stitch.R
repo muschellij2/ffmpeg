@@ -130,6 +130,7 @@ testthat::test_that("ffmpeg can combine audio and images into a video", {
     plot(1:5 * i, 1:5, main = i)
     dev.off()
   }
+  graphs = file.path(tdir, basename(tdir))
   graphs = normalizePath(
     graphs, mustWork = TRUE,
     winslash = "/")
@@ -141,7 +142,7 @@ testthat::test_that("ffmpeg can combine audio and images into a video", {
   
   output <- tempfile(fileext = ".mp4", tmpdir = tdir)
   
-  stitcher(graphs, sound, 
+  stitcher(images = graphs, sound, 
            output = output,
            audio_codec = audio_codec)
   
