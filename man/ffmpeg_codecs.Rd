@@ -5,6 +5,7 @@
 \alias{ffmpeg_video_codecs}
 \alias{ffmpeg_audio_codecs}
 \alias{ffmpeg_muxers}
+\alias{ffmpeg_version}
 \title{Get Codecs for ffmpeg}
 \usage{
 ffmpeg_codecs()
@@ -14,6 +15,8 @@ ffmpeg_video_codecs()
 ffmpeg_audio_codecs()
 
 ffmpeg_muxers()
+
+ffmpeg_version()
 }
 \value{
 A \code{data.frame} of codec names and capabilities

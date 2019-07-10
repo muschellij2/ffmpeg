@@ -144,7 +144,8 @@ testthat::test_that("ffmpeg can combine audio and images into a video", {
   
   stitcher(images = graphs, sound, 
            output = output,
-           audio_codec = audio_codec)
+           audio_codec = audio_codec,
+           verbose = 2)
   
   expect_true(file.size(output) > 50000)
 })

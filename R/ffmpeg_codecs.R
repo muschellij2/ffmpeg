@@ -105,3 +105,14 @@ ffmpeg_muxers = function() {
   
   return(res)
 }
+
+#' @rdname ffmpeg_codecs
+#' @export
+ffmpeg_version = function() {
+  ffmpeg = ffmpeg_exec()
+  cmd = paste(ffmpeg, "-version")
+  res = system(cmd, intern = TRUE, ignore.stderr = TRUE)
+  res = trimws(res)
+  res = res[grepl("^ffmpeg version", res)]
+  return(res)
+}
