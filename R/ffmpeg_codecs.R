@@ -6,8 +6,8 @@
 #' @examples
 #' if (have_ffmpeg_exec()) {
 #' ffmpeg_codecs()
-#' ffmpeg_audio_codecs()
 #' ffmpeg_video_codecs()
+#' ffmpeg_audio_codecs()
 #' }
 ffmpeg_codecs = function() {
   ffmpeg = ffmpeg_exec()
