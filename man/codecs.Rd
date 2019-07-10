@@ -35,6 +35,7 @@ Set Default Audio and Video Codecs
 \examples{
 
 if (have_ffmpeg_exec()) {
+print(ffmpeg_version())
 get_audio_codec()
 set_audio_codec(codec = "libfdk_aac")
 get_audio_codec()
