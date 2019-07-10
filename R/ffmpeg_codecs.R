@@ -18,7 +18,7 @@ ffmpeg_codecs = function() {
   if (length(res) == 0) {
     res = ""
   }
-  if (result != 0 & res %in% "") {
+  if (result != 0 & all(res %in% "")) {
     warning("No codecs output from ffmpeg for codecs")
     return(NULL)
   }
@@ -112,7 +112,7 @@ ffmpeg_muxers = function() {
   if (length(res) == 0) {
     res = ""
   }  
-  if (result != 0 & res %in% "") {
+  if (result != 0 & all(res %in% "")) {
     warning("No codecs output from ffmpeg for muxers")
     return(NULL)
   }   
@@ -148,12 +148,13 @@ ffmpeg_version = function() {
   if (length(res) == 0) {
     res = ""
   }  
-  if (result != 0 & res %in% "") {
+  if (result != 0 & all(res %in% "")) {
     warning("No codecs output from ffmpeg for version")
     return(NULL)
   }  
   res = res[grepl("^ffmpeg version", res)]
   res = sub("ffmpeg version (.*) Copyright .*", "\\1", res)
+  res = sub("(ubuntu|debian).*", "", res)
   res = trimws(res)
   return(res)
 }

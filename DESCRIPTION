@@ -1,7 +1,7 @@
 Package: ffmpeg
 Type: Package
 Title: Wrapper for 'ffmpeg' Video Software
-Version: 0.0.0.9000
+Version: 0.0.0.9001
 Authors@R: c(
     person("Sean", "Kross", email = "sean@seankross.com", role = c("aut")),
     person("John", "Muschelli", email = "muschellij2@gmail.com",
