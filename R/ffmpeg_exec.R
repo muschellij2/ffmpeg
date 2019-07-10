@@ -23,6 +23,13 @@ ffmpeg_exec = function() {
                "for ffmpeg_exec() ", 
                "for more details."))
   }
+  if (!ffmpeg %in% c("ffmpeg", "ffmpeg.exe")) {
+    ffmpeg = normalizePath(ffmpeg, winslash = "/")
+    if (get_os() == "windows") {
+      ffmpeg = shQuote(ffmpeg)
+    }    
+  }
+
   return(ffmpeg)
 }
 
