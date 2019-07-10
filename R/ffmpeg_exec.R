@@ -5,13 +5,14 @@
 #' @note This looks using `Sys.getenv("ffmpeg")` and `Sys.which("ffmpeg")`
 #' to find `ffmpeg`.  If `ffmpeg` is not in your PATH, then please set the
 #' path to `ffmpeg` using `Sys.setenv(ffmpeg = "/path/to/ffmpeg")`
+#' @param quote should \code{\link{shQuote}} be run before returning?
 #' @export
 #' 
 #' @examples
 #' if (have_ffmpeg_exec()) { 
 #' ffmpeg_exec()
 #' }
-ffmpeg_exec = function() {
+ffmpeg_exec = function(quote = FALSE) {
   ffmpeg = c(
     Sys.getenv("ffmpeg"), 
     Sys.which("ffmpeg"))
@@ -25,9 +26,9 @@ ffmpeg_exec = function() {
   }
   if (!ffmpeg %in% c("ffmpeg", "ffmpeg.exe")) {
     ffmpeg = normalizePath(ffmpeg, winslash = "/")
-    if (get_os() == "windows") {
-      ffmpeg = shQuote(ffmpeg)
-    }    
+  }
+  if (quote) {
+    ffmpeg = shQuote(ffmpeg)
   }
 
   return(ffmpeg)

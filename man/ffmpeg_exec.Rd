@@ -5,9 +5,12 @@
 \alias{have_ffmpeg_exec}
 \title{Get Path to ffmpeg Executable}
 \usage{
-ffmpeg_exec()
+ffmpeg_exec(quote = FALSE)
 
 have_ffmpeg_exec()
+}
+\arguments{
+\item{quote}{should \code{\link{shQuote}} be run before returning?}
 }
 \value{
 The path to the \code{ffmpeg} executable, or an error.

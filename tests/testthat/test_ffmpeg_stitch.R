@@ -71,7 +71,7 @@ stitcher = function(images, audio,
   # ffmpeg-concat-doesnt-work-with-absolute-path
   # input_txt_path = normalizePath(input_txt_path, winslash = "\\")
   
-  ffmpeg = ffmpeg_exec()
+  ffmpeg = ffmpeg_exec(quote = TRUE)
   ffmpeg_opts = ""
   ffmpeg_opts = c(ffmpeg_opts, 
                   '-vf "scale=trunc(iw/2)*2:trunc(ih/2)*2"')
