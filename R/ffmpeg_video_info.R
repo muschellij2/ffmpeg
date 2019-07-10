@@ -11,7 +11,7 @@
 #' res = ffmpeg_video_info(fname)
 #' }
 ffmpeg_video_info = function(file) {
-  ffmpeg = ffmpeg_exec()
+  ffmpeg = ffmpeg_exec(quote = FALSE)
   file = normalizePath(file)
   args = c("-i", file, "-hide_banner")
   suppressWarnings({
