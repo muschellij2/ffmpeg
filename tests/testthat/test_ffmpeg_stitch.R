@@ -6,7 +6,7 @@ stitcher = function(images, audio,
                     video_codec = get_video_codec(),
                     output = tempfile(fileext = ".mp4"),
                     verbose = TRUE) {
-
+  
   tdir = normalizePath(tempdir(), winslash = "/")
   
   audio_bitrate = "192k"
@@ -53,10 +53,9 @@ stitcher = function(images, audio,
   tuneR::writeWave(wav, filename = wav_path)
   on.exit(unlink(wav_path, force = TRUE), add = TRUE)
   
-  input_txt_path <- file.path(output_dir, 
-                              paste0("input_", 
-                                     basename(tempfile(tmpdir = tdir)), 
-                                     ".txt"))
+  input_txt_path <- paste0("input_", 
+                           basename(tempfile(tmpdir = tdir)), 
+                           ".txt")
   ## on windows ffmpeg cancats names adding the working directory, so if
   for (i in seq_along(images)){
     cat(paste0("file ", "'", images[i], "'", "\n"), 
@@ -66,6 +65,11 @@ stitcher = function(images, audio,
   }
   cat(paste0("file ", "'", images[i], "'", "\n"), 
       file = input_txt_path, append = TRUE)
+  
+  # needed for users as per 
+  # https://superuser.com/questions/718027/
+  # ffmpeg-concat-doesnt-work-with-absolute-path
+  # input_txt_path = normalizePath(input_txt_path, winslash = "\\")
   
   ffmpeg = ffmpeg_exec()
   ffmpeg_opts = ""
