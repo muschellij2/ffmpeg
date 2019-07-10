@@ -89,6 +89,7 @@ stitcher = function(images, audio,
     shQuote(output))
   if (verbose > 0) {
     message(command)
+    cat(command)
   }
   if (verbose > 1) {
     message("Input text path is:")
