@@ -3,6 +3,7 @@
 export(audio_codec_encode)
 export(ffmpeg_audio_codecs)
 export(ffmpeg_codecs)
+export(ffmpeg_convert)
 export(ffmpeg_exec)
 export(ffmpeg_muxers)
 export(ffmpeg_version)
